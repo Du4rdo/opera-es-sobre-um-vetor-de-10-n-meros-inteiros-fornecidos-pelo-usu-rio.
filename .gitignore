@@ -1,32 +1,102 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+#include <stdio.h>
+struct Resultado {
+int maiorN;
+int posicao;
+};
+Resultado maiorNumero(int vetor[], int tamanho) {
+Resultado resultado;
+resultado.maiorN = vetor[0];
+resultado.posicao = 1;
+for(int i = 1; i < tamanho; i++) {
+if(vetor[i] > resultado.maiorN) {
+resultado.maiorN = vetor[i];
+resultado.posicao = i;
+}
+}
+return resultado;
+}
+int somaNumeros(int vetor[], int tamanho) {
+int soma = 0;
+for(int i = 0; i < tamanho; i++) {
+soma += vetor[i];
+}
+return soma;
+}
+float mediaNumeros(int vetor[], int tamanho) {
+int soma = somaNumeros(vetor, tamanho);
+return (float)soma / tamanho;
+}
+int numerosPares(int vetor[], int tamanho) {
+int pares = 0;
+for(int i = 0; i < tamanho; i++) {
+if(vetor[i] % 2 == 0) {
+pares++;
+}
+}
+return pares;
+}
+void somaImpares(int vetor[], int tamanho) {
+for(int i = 0; i < tamanho; i++) {
+if(vetor[i] % 2 != 0) {
+vetor[i] += 5;
+}
+}
+}
+int main() {
+int vetor[10], soma, pares, metrosT, opcao;
+float media;
+Resultado resultado;
+printf("Digite 10 numeros inteiros\n");
+for(int i = 0; i < 10; i++) {
+printf("Digite o %i numero: ", i + 1);
+scanf("%i", &vetor[i]);
+}
+resultado = maiorNumero(vetor, 10);
+soma = somaNumeros(vetor, 10);
+media = mediaNumeros(vetor, 10);
+pares = numerosPares(vetor, 10);
+somaImpares(vetor, 10);
+do {
+printf("01. Retornar o maior numero guardado e a posicao em que foi guardado.\n");
+printf("02. Retorne a soma dos numeros guardados.\n");
+printf("03. Retorne a media dos numeros guardados, usando a funcao do item 02\n");
+printf("04. Retorne quantos numeros pares foram guardados\n");
+printf("05. Quantos metros no total o atleta devera correr (quantidade dos
+numeros).\n");
+printf("06. Aumentar em 5 unidades todos os numeros impares.\n");
+printf("Escolha uma opção (ou digite 0 para sair): ");
+scanf("%i", &opcao);
+switch(opcao) {
+case 1:
+printf("\nMaior numero: %i, na posição: %i\n", resultado.maiorN,
+resultado.posicao);
+break;
+case 2:
+printf("\nSoma dos numeros: %i\n", soma);
+break;
+case 3:
+printf("\nMedia dos numeros: %.2f\n", media);
+break;
+case 4:
+printf("\nNumeros pares: %i\n", pares);
+break;
+case 5:
+printf("\nMetros totais: %i\n", soma);
+break;
+case 6:
+printf("\nVetor atualizado somando 5 aos valores impares: \n");
+for(int i = 0; i < 10; i++) {
+printf("%i ", vetor[i]);
+}
+printf("\n");
+break;
+case 0:
+printf("Saindo...\n");
+break;
+default:
+printf("Opção inválida!\n");
+break;
+}
+} while(opcao != 0);
+return 0;
+}
